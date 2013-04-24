@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 
 
-public class ExchangeNode extends EventHandler {
+public class ExchangeNode extends Node {
 
 
 	public static final String STAT_SENDER = "sender";
@@ -17,26 +17,17 @@ public class ExchangeNode extends EventHandler {
 	
 	public static final String MSG_A = "A";
 	public static final String MSG_AREPLY = "AREPLY";
-	public static final String MSG_INIT = "INIT";
+	// public static final String MSG_INIT = "INIT";
 	
-	// Variables needed to any Event handler in this simulation
-	private double now;
-	private PrintStream a = System.out; 
-
-	
-	public SimSystem sim; 
-	public int id; 
-	public String status; 
-	public ArrayList<Integer> neighbors; 
+	 
 
 
 	// Do we need to have a point to simulator system ? 
 	// Yes: for the reception and sending of messages ?
 	public ExchangeNode(SimSystem sim, int id) {
-		this.sim = sim;
-		this.id = id; 
+		super(sim, id);
 		this.status = ExchangeNode.STAT_RECEIVER; 
-		this.neighbors = new ArrayList<Integer>();
+	
 	}
 		
 	public void setNeighbors(ArrayList<Integer> neighbors) { 
@@ -61,7 +52,7 @@ public class ExchangeNode extends EventHandler {
 			break;
 			
 			default: 
-				a.printf("error: action %d is not recognized \n", e.action);
+				log.printf("error: action %d is not recognized \n", e.action);
 				System.exit(0);
 				
 		}
@@ -69,7 +60,7 @@ public class ExchangeNode extends EventHandler {
 		
 	}
 
-	private void handleReceivedMessage(Message message) {
+	protected void handleReceivedMessage(Message message) {
 		if (status == ExchangeNode.STAT_RECEIVER  ) { 
 			handleStatusReceiver(message); 
 			
@@ -135,7 +126,7 @@ public class ExchangeNode extends EventHandler {
 		
 	}
 
-	private void initProtocol() {
+	protected void initProtocol() {
 		
 		if (D) { 
 			System.out.printf("%d is at init protocol \n", this.id);
@@ -157,26 +148,8 @@ public class ExchangeNode extends EventHandler {
 	
 
 	
-	private void sendMessage(Message msg) { 
-		
-		if (D) { 
-			System.out.printf("%d sends message to %d \n", 
-					msg.senderId, msg.receiverId);
-		}
-		
-		Event e = new Event(); 
-		e.action = EventType.MESSAGE; 
-		e.message = msg; 
-		e.time = now + msgDelay();
-		
-		sim.future.enter(e);
-	}
-	
-	private double msgDelay() { 
-		return 1.0;
-	}
 
-	public void addNeighbor(int i) {
-		neighbors.add(i);
-	}
+	
+
+
 }

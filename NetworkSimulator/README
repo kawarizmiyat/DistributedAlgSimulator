@@ -19,4 +19,11 @@ the object future (for future events). We can make SimSystem and future
 as static objects. 
 
 
-// TODO: broadcast algorithm - with a single initiator.
+// Done: broadcast algorithm - with a single initiator. (BroadcastNode). 
+
+Added a abstract Node which should be the superclass of all protocols. 
+Class Node shall contains all the functions that must be used by every 
+protocol (like initProtocol() and handleReceivedMessage()). Also, it contains 
+all the variables common to all nodes (like id, status etc .. ).  
+
+ 

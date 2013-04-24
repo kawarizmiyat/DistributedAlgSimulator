@@ -1,17 +1,16 @@
 package com.simulator; 
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 
 
-public class SimSystem extends EventHandler {
+public class SimSystem  {
 	public FutureEventList future;
 
 	// for keeping statistics
 	private final double END = 2000; // marks the end of the simulation period
-	private final int numNodes = 2; 
-	private ArrayList<ExchangeNode> nodesTable;
+	private final int numNodes = 4; 
+	private ArrayList<BroadcastNode> nodesTable;
 
 
 	public SimSystem() { 
@@ -21,16 +20,30 @@ public class SimSystem extends EventHandler {
 	}
 
 	public void setupNodes(int n) {
-		nodesTable = new ArrayList<ExchangeNode>();
+		nodesTable = new ArrayList<BroadcastNode>();
 		for (int i = 0; i < n; i++) { 
-			nodesTable.add(new ExchangeNode(this, i));
+			nodesTable.add(new BroadcastNode(this, i));
 		}
-		
-		nodesTable.get(0).addNeighbor(1);
-		nodesTable.get(1).addNeighbor(0);
-		
+
+		setupNeighbors();
+
 
 		setInitiator(0);
+	}
+
+	private void setupNeighbors() {
+
+		// TODO: 
+		nodesTable.get(0).addNeighbor(1); 
+		nodesTable.get(1).addNeighbor(0); 
+
+
+		nodesTable.get(0).addNeighbor(2); 
+		nodesTable.get(2).addNeighbor(0); 
+
+		nodesTable.get(1).addNeighbor(3); 
+		nodesTable.get(3).addNeighbor(1);
+
 	}
 
 	private void setInitiator(int i) {
