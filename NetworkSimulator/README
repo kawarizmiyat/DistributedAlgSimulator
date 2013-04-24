@@ -1,0 +1,22 @@
+
+This project constitute the basic of a network simulator. 
+The important classes are: 
+
+1. SimSystem: This is where the simulator run and setup. 
+2. FututeEvent: There is a variable future in class SimSystem 
+in which events are entered in a FIFO manner. 
+3. ExchangeNode: 
+	- This is where the protocol must be implemented. 
+	- Each of such object has a set of states and a set of message types
+
+4. Message: the sender, receiver, msgType and msgContent. 
+	- could be extended later. 
+
+
+// TODO:
+Note that every ExchangeNode uses an object of SimSystem in order to access 
+the object future (for future events). We can make SimSystem and future 
+as static objects. 
+
+
+// TODO: broadcast algorithm - with a single initiator.
